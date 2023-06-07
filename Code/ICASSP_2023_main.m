@@ -13,7 +13,19 @@ base_path = parts{1};
 addpath(genpath(strcat(base_path,delimiter,"\Utilities")));
 
 %This requires to generate the audio data first
-load(strcat(base_path,delimiter,"\Audio Data\Reverberant\WPE with Microphone-dependent Prediction Delays\RIM\audio_data_TIMIT_ICASSP_compact.mat"));
+load(strcat(base_path,delimiter,"\Audio_Data\audio_data_ICASSP_h_src_1_24.mat"));
+load(strcat(base_path,delimiter,"\Audio_Data\audio_data_ICASSP_h_src_25_48.mat"));
+load(strcat(base_path,delimiter,"\Audio_Data\audio_data_ICASSP_h_src_dir.mat"));
+load(strcat(base_path,delimiter,"\Audio_Data\audio_data_ICASSP_mic_pos.mat"));
+load(strcat(base_path,delimiter,"\Audio_Data\audio_data_ICASSP_samp_delay.mat"));
+load(strcat(base_path,delimiter,"\Audio_Data\audio_data_ICASSP_src_pos_mat.mat"));
+load(strcat(base_path,delimiter,"\Audio_Data\audio_data_ICASSP_target_spk_clean.mat"));
+
+%join together h_src files
+h_src = cell(48,3);
+h_src(1:24,:) = h_src_1_24;
+h_src(25:48,:) = h_src_25_48;
+
 
 %signal parameters
 fs = 16000;
@@ -39,6 +51,7 @@ Lg = 8;
 tau = 2;
 Lg_vec = [8,12,16];
 ref_chan = 1;
+
 
 %Tools for GCC-PHAT estimation
 nChan = size(h_src{1},2);
